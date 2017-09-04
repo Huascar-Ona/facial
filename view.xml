@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="menu_asistmil" name="Asistmil"
+            parent="hr.menu_hr_configuration" sequence="1" groups="base.group_hr_manager"/>
+
+        <!-- Inicidencias -->
+
+        <record id="act_open_incidencias" model="ir.actions.act_window">
+            <field name="name">Incidencias</field>
+            <field name="res_model">asistmil.inciden</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list</field>
+        </record>
+
+        <menuitem action="act_open_incidencias" id="menu_open_incidencias"
+            parent="facial.menu_asistmil" sequence="1" groups="base.group_hr_manager"/>
+
+        <record id="hr_incidencias_tree" model="ir.ui.view">
+            <field name="name">asistmil.incidencias.tree</field>
+            <field name="model">asistmil.inciden</field>
+            <field name="arch" type="xml">
+                <tree string="Incidencias" editable="top">
+                    <field name="empleado"/>
+                    <field name="fecha"/>
+                    <field name="tipo"/>
+                    <field name="tiempo"/>
+                    <field name="secuencia"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Asignaciones -->
+
+        <record id="act_open_asignaciones" model="ir.actions.act_window">
+            <field name="name">Asignaciones</field>
+            <field name="res_model">asistmil.asignaciones</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list</field>
+        </record>
+
+        <menuitem action="act_open_asignaciones" id="menu_open_asignaciones"
+            parent="facial.menu_asistmil" sequence="2" groups="base.group_hr_manager"/>
+
+        <record id="hr_asignaciones_tree" model="ir.ui.view">
+            <field name="name">asistmil.asignaciones.tree</field>
+            <field name="model">asistmil.asignaciones</field>
+            <field name="arch" type="xml">
+                <tree string="Asignaciones" editable="top" create="false">
+                    <field name="emp"/>
+                    <field name="semana"/>
+                    <field name="anio"/>
+                    <field name="secuencia"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Justificantes -->
+
+        <record id="hr_justificantes_tree" model="ir.ui.view">
+            <field name="name">asistmil.justificantes.tree</field>
+            <field name="model">asistmil.justificantes</field>
+            <field name="arch" type="xml">
+                <tree string="Justificantes" editable="top" create="false">
+                    <field name="clave"/>
+                    <field name="descripcion"/>
+                    <field name="dia"/>
+                    <field name="tiempo"/>
+                    <field name="entrada"/>
+                    <field name="salida"/>
+                </tree>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
