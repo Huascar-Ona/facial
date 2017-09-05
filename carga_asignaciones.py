@@ -1,11 +1,11 @@
 from pypxlib import Table
 import psycopg2
 import datetime
+from conf import get_conf
 
-conn = psycopg2.connect("dbname=offset21junio user=openerp password=zentella host=localhost")
-cr = conn.cursor()
+conn,cr,tpath = get_conf()
 
-table = Table("/mnt/servidorconta/ASISTMIL/Asignacion.DB")
+table = Table(tpath + "Asignacion.DB")
 tup = []
 for i,row in enumerate(table):
     if not row.Inicio:
