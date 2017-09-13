@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import osv,fields
 import os
-COMANDO = "/usr/bin/insertar_autorizacion"
+RUTA = "/mnt/asistmil/ASISTMIL/OPENRP.CSV"
 
 class incidencias(osv.Model):
     _name = "asistmil.incidencias"
@@ -26,9 +26,15 @@ class incidencias(osv.Model):
 class autorizaciones(osv.Model):
     _name = "asistmil.autorizaciones"
 
+
     def insert(self, cr, uid, empleado, fecha, justificante):
-        fecha = fecha.strftime("%d/%m/%Y")
-        os.system(" ".join(["sudo", COMANDO, str(empleado), fecha, str(justificante)]))
+        if type(fecha) in (str,unicode):
+            y,m,d = fecha.split("-")
+            fecha = "%s/%s/%s"%(d,m,y)
+        else:
+            fecha = fecha.strftime("%d/%m/%Y")
+        with open(RUTA, "a") as f:
+            f.write("%s,%s,%s\r\n"%(empleado,fecha,justificante))
         return True
 
     _columns = {
