@@ -5,7 +5,16 @@ from conf import get_conf
 
 conn, cr, path = get_conf() 
 
+#Los que ya están procesados guardarlos para que no se pierda el registro
+cr.execute("select empleado,fecha,tipo,tiempo from asistmil_inciden where fecha >= date_trunc('month', now()) and process='t'")
+procesados = []
+for row in cr.fetchall():
+    procesados.append(row)
+    print row[0], row[1].strftime("%Y-%m-%d"), row[2], row[3]
+print "Ya procesados de este mes:", len(procesados)
+
 #Borrar los registros del mes
+print "Borrando todo lo del mes..."
 cr.execute("delete from asistmil_inciden where fecha >= date_trunc('month', now())")
 
 #Son registros incompletos todos los que su campo horario empiecen con un dígito, y les corresponde el tipo 0355
@@ -67,6 +76,12 @@ cr.execute("""delete from asistmil_inciden t1
               using hr_employee t2
               where t1.empleado=t2.cod_emp
               and (t1.fecha < t2.fecha_alta or t1.fecha in (select fe_asueto from hr_caleasue))""")
+
+print "Actualizando los ya procesados"
+for row in procesados:
+    cr.execute("update asistmil_inciden set process='t' where empleado=%s and fecha=%s and tipo=%s and tiempo=%s", row)
+cr.execute("select count(*) from asistmil_inciden where process='t'")
+print "Procesados después de la actualización",  cr.fetchone()[0]
 
 conn.commit()
 conn.close()
