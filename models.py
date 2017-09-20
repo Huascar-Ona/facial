@@ -101,7 +101,8 @@ class asignaciones(osv.Model):
         'emp': fields.integer("Empleado"),
         'semana': fields.integer("Semana"),
         'anio': fields.integer(u"Año"),
-        'secuencia': fields.integer("Secuencia")
+        'secuencia': fields.integer("Secuencia"),
+        'process': fields.boolean("Aplicado")
     }
 
 class inciden(osv.Model):

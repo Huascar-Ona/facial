@@ -80,8 +80,8 @@ cr.execute("""delete from asistmil_inciden t1
 print "Actualizando los ya procesados"
 for row in procesados:
     cr.execute("update asistmil_inciden set process='t' where empleado=%s and fecha=%s and tipo=%s and tiempo=%s", row)
-cr.execute("select count(*) from asistmil_inciden where process='t'")
-print "Procesados después de la actualización",  cr.fetchone()[0]
+cr.execute("select count(*) from asistmil_inciden where process='t' and fecha >= date_trunc('month', now())")
+print "Procesados del mes después de la actualización",  cr.fetchone()[0]
 
 conn.commit()
 conn.close()
