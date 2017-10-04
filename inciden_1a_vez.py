@@ -13,6 +13,7 @@ cr.execute("""insert into asistmil_inciden(empleado,fecha,tipo,secuencia)
               select empleado,fecha,'0355',0
               from asistmil_incidencias
               where substring(horario from 1 for 1) in ('1','2','3','4','5','6','7','8','9')
+              and registros=1
               and extract(year from fecha) = extract(year from now())
               and fecha <= now()""")
 
