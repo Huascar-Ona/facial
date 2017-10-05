@@ -102,7 +102,6 @@ class asignaciones(osv.Model):
         'semana': fields.integer("Semana"),
         'anio': fields.integer(u"Año"),
         'secuencia': fields.integer("Secuencia"),
-        'process': fields.boolean("Aplicado")
     }
 
 class inciden(osv.Model):
@@ -113,5 +112,15 @@ class inciden(osv.Model):
         'fecha': fields.date("Fecha"),
         'tiempo': fields.float("Tiempo"),
         'tipo': fields.char("Tipo"),
-        'secuencia': fields.integer("Secuencia")
+        'secuencia': fields.integer("Secuencia"),
+        'process': fields.boolean("Aplicado")
     }
+
+#Botón para actualizar los justificantes on demand
+
+class actualizar_justificantes(osv.TransientModel):
+    _name = "asistmil.actualizar.justificantes"
+    
+    def actualizar(self, cr, uid, ids, context=None):
+        os.system("python /opt/addons_zenpar/facial/carga_justificantes.py")
+        return True

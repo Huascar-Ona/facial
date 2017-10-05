@@ -60,6 +60,15 @@
 
 
         <!-- Justificantes -->
+        <record id="act_open_justificantes" model="ir.actions.act_window">
+            <field name="name">Justificantes</field>
+            <field name="res_model">asistmil.justificantes</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list</field>
+        </record>
+
+        <menuitem action="act_open_justificantes" id="menu_open_justificantes"
+            parent="facial.menu_asistmil" sequence="2" groups="base.group_hr_manager"/>
 
         <record id="hr_justificantes_tree" model="ir.ui.view">
             <field name="name">asistmil.justificantes.tree</field>
@@ -76,6 +85,23 @@
             </field>
         </record>
 
+    <act_window id="wizard_actualizar"
+        name="Actualizar justificantes"
+        src_model="asistmil.justificantes"
+        res_model="asistmil.actualizar.justificantes"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+
+        <record id="hr_wizard_actualizar_justificantes" model="ir.ui.view">
+            <field name="name">asistmil.wizard.actualizar.justificantes</field>
+            <field name="model">asistmil.actualizar.justificantes</field>
+            <field name="arch" type="xml">
+                <form string="Actualizar justificantes" version="7.0">
+                    <button name="actualizar" string="Actualizar" type="object"/>
+                </form>
+            </field>
+        </record>
 
     </data>
 </openerp>

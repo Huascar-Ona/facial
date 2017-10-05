@@ -27,7 +27,7 @@ else:
             cr.execute("insert into asistmil_justificantes(clave,descripcion,tiempo,dia,entrada,salida) values (%s,%s,%s,%s,%s,%s)",
                 (row.Clave,row.Descripcion,row.Tiempo,row.Dia,row.Entrada,row.Salida))
         else:
-            print "sí"
+            print "si"
 
 conn.commit()
 conn.close()
