@@ -2,6 +2,7 @@
 from openerp.osv import osv,fields
 import os
 RUTA = "/mnt/asistmil/ASISTMIL/OPENRP.CSV"
+RUTA2 = "./OPENERP_CO.CSV"
 
 class incidencias(osv.Model):
     _name = "asistmil.incidencias"
@@ -35,6 +36,18 @@ class autorizaciones(osv.Model):
             fecha = fecha.strftime("%d/%m/%Y")
         with open(RUTA, "a") as f:
             f.write("%s,%s,%s\r\n"%(empleado,fecha,justificante))
+
+        return True
+
+    def insert_occacional(self, cr, uid, empleado, fecha, horario, tiempo):
+        if type(fecha) in (str,unicode):
+            y,m,d = fecha.split("-")
+            fecha = "%s/%s/%s"%(d,m,y)
+        else:
+            fecha = fecha.strftime("%d/%m/%Y")
+        with open(RUTA2, "a") as f:
+            f.write("%s,%s,%s,%s\r\n"%(empleado,fecha,horario,tiempo))
+
         return True
 
     _columns = {
@@ -43,6 +56,7 @@ class autorizaciones(osv.Model):
         'justificante': fields.integer("Justificante"),
         'folio': fields.char("Folio")
     }
+
 class justificantes(osv.Model):
     _name = "asistmil.justificantes"
 
@@ -52,7 +66,7 @@ class justificantes(osv.Model):
             nombre = "[%s] %s"%(rec.clave, rec.descripcion)
             names.append((rec.id, nombre))
         return names
-        
+
     def name_search(self, cr, user, name='', args=None, operator='ilike',
                          context=None, limit=100):
         if not args:
@@ -67,7 +81,7 @@ class justificantes(osv.Model):
 
         recs = self.name_get(cr, user, ids, context)
         return sorted(recs, key=lambda (id, name): ids.index(id))
-        
+
     _columns = {
         'clave': fields.integer("Clave"),
         'descripcion': fields.char(u"Descripción"),
@@ -120,7 +134,7 @@ class inciden(osv.Model):
 
 class actualizar_justificantes(osv.TransientModel):
     _name = "asistmil.actualizar.justificantes"
-    
+
     def actualizar(self, cr, uid, ids, context=None):
         os.system("python /opt/addons_zenpar/facial/carga_justificantes.py")
         return True
