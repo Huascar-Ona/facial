@@ -10,7 +10,8 @@
 Módulo con las tablas del asistmil
     """,
     'data': [
-        'view.xml'
+        'view.xml',
+        'secuencias.xml'
      ],
     'demo': [],
     'test': [],

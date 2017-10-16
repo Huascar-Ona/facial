@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="asistmil_secuencias_tree" model="ir.ui.view">
+            <field name="name">asistmil.secuencias.tree</field>
+            <field name="model">asistmil.secuencias</field>
+            <field name="arch" type="xml">
+                <tree string="Secuencias" editable="top">
+                    <field name="clave"/>
+                    <field name="domingo"/>
+                    <field name="lunes"/>
+                    <field name="martes"/>
+                    <field name="miercoles"/>
+                    <field name="jueves"/>
+                    <field name="viernes"/>
+                    <field name="sabado"/>
+                    <field name="descripcion"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>

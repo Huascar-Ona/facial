@@ -93,6 +93,7 @@ class justificantes(osv.Model):
 
 class secuencias(osv.Model):
     _name = "asistmil.secuencias"
+    _rec_name = 'clave'
 
     _columns = {
         'clave': fields.integer("Clave"),
